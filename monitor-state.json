@@ -1,1 +1,27 @@
-{}
+{
+  "website": {
+    "successes": 1,
+    "state": "operational",
+    "delivered": "resolved"
+  },
+  "hub": {
+    "successes": 1,
+    "state": "operational",
+    "delivered": "resolved"
+  },
+  "hub-api": {
+    "successes": 1,
+    "state": "operational",
+    "delivered": "resolved"
+  },
+  "docs": {
+    "successes": 1,
+    "state": "operational",
+    "delivered": "resolved"
+  },
+  "engine": {
+    "successes": 1,
+    "state": "operational",
+    "delivered": "resolved"
+  }
+}
