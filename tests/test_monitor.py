@@ -44,6 +44,14 @@ class EvidenceTests(unittest.TestCase):
         monitor.notify("hub", {"state": "unknown", "delivered": "firing"}, monitor.stamp(), sent.append)
         self.assertEqual(sent, [])
 
+    def test_public_events_and_maintenance_remain_visible(self):
+        event = {"id": "public-1", "name": "An operator-confirmed incident", "status": "identified", "last_update_at": monitor.stamp()}
+        maintenance = dict(event, id="maintenance-1", status="maintenance_in_progress")
+        normalized = monitor.normalize_public_events({"ongoing_incidents": [event], "in_progress_maintenances": [maintenance]})
+        self.assertEqual([entry["state"] for entry in normalized], ["identified", "monitoring"])
+        with self.assertRaises((KeyError, ValueError)):
+            monitor.normalize_public_events({})
+
 
 if __name__ == "__main__":
     unittest.main()

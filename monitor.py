@@ -82,6 +82,33 @@ def notify(identity, record, observed_at, send):
     record["delivered"] = desired
 
 
+def normalize_public_events(summary):
+    events = summary["ongoing_incidents"]
+    maintenance = summary["in_progress_maintenances"]
+    if not isinstance(events, list) or not isinstance(maintenance, list):
+        raise ValueError("invalid public status feed")
+    result = []
+    for event in events + maintenance:
+        status = event["status"]
+        if status not in {"investigating", "identified", "monitoring", "maintenance_in_progress"}:
+            raise ValueError("unrecognized active incident status")
+        result.append({"id": str(event["id"])[:100], "source": "incident.io",
+                       "title": str(event["name"])[:240],
+                       "state": "monitoring" if status == "maintenance_in_progress" else status,
+                       "updated_at": event["last_update_at"]})
+    return result
+
+
+def public_events():
+    request = urllib.request.Request("https://status.picovolt.dev/api/v1/summary",
+                                    headers={"Accept": "application/json", "User-Agent": "PicoVolt-External-Monitor"})
+    with urllib.request.urlopen(request, timeout=10) as response:
+        content = response.read(262145)
+        if response.status != 200 or len(content) > 262144:
+            raise ValueError("invalid public status response")
+    return normalize_public_events(json.loads(content))
+
+
 def main():
     started = os.environ["MONITOR_STARTED_AT"]
     state_path = ROOT / "monitor-state.json"
@@ -115,11 +142,18 @@ def main():
                 errors.append(f"{identity}: alert delivery failed; will retry")
     if not token or not url:
         errors.append("incident.io delivery not configured")
+    try:
+        incidents = public_events()
+    except Exception:
+        incidents = previous_report.get("incidents", [])
+        components.append({"id": "incident-feed", "name": "Incident updates", "state": "unknown",
+                           "detail": "The public incident feed could not be verified."})
+        errors.append("public incident feed unavailable")
     history = previous_report.get("history", [])[-287:]
     history.append({"observed_at": now, "passed": sum(c["state"] == "operational" for c in components), "total": len(components)})
     report = {"schema_version": 1, "generated_at": now, "max_age_seconds": 600,
               "monitoring_mode": "external_scheduled", "components": components,
-              "history": history, "incidents": [], "status_page_url": "https://status.picovolt.dev/"}
+              "history": history, "incidents": incidents, "status_page_url": "https://status.picovolt.dev/"}
     for path, data in [(state_path, records), (report_path, report)]:
         temporary = path.with_suffix(".tmp")
         temporary.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
