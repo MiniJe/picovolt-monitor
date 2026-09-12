@@ -1,0 +1,50 @@
+name: External service checks
+on:
+  schedule:
+    - cron: '2-57/5 * * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+  issues: write
+concurrency:
+  group: external-monitor
+  cancel-in-progress: false
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          ref: main
+      - name: Record run start
+        run: echo "MONITOR_STARTED_AT=$(date -u +%Y-%m-%dT%H:%M:%SZ)" >> "$GITHUB_ENV"
+      - name: Test status transitions and delivery
+        run: python3 -m unittest discover -s tests -v
+      - name: Check public endpoints with Upptime
+        uses: upptime/uptime-monitor@2e53e7570ad597ccf3f251d43502846a042165d2
+        with:
+          command: response-time
+        env:
+          GH_PAT: ${{ github.token }}
+          SECRETS_CONTEXT: '{}'
+      - name: Publish evidence and send incident.io alerts
+        id: bridge
+        continue-on-error: true
+        run: python3 monitor.py
+        env:
+          INCIDENT_HTTP_TOKEN: ${{ secrets.INCIDENT_HTTP_TOKEN }}
+          INCIDENT_HTTP_URL: ${{ vars.INCIDENT_HTTP_URL }}
+      - name: Save observation and delivery state
+        if: always()
+        run: |
+          git config user.name 'PicoVolt Monitor'
+          git config user.email 'monitor@users.noreply.github.com'
+          git add api/status.json monitor-state.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Record external availability checks'
+            git push
+          fi
+      - name: Report incomplete checks or alert delivery
+        if: steps.bridge.outcome == 'failure'
+        run: exit 1

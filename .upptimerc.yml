@@ -1,0 +1,38 @@
+owner: MiniJe
+repo: picovolt-monitor
+user-agent: PicoVolt-External-Monitor
+secrets: []
+skipDeleteIssues: true
+sites:
+  - name: Website
+    slug: website
+    url: https://picovolt.dev/
+    expectedStatusCodes: [200]
+    maxResponseTime: 10000
+  - name: PicoVolt Hub
+    slug: hub
+    url: https://hub.picovolt.dev/
+    expectedStatusCodes: [200]
+    maxResponseTime: 10000
+  - name: Hub API
+    slug: hub-api
+    url: https://hub.picovolt.dev/api/health
+    expectedStatusCodes: [200]
+    maxResponseTime: 10000
+    __dangerous__body_down_if_text_missing: '"status":"ok"'
+  - name: Documentation
+    slug: docs
+    url: https://picovolt.dev/docs/get-started.html
+    expectedStatusCodes: [200]
+    maxResponseTime: 10000
+  - name: Browser engine delivery
+    slug: engine
+    url: https://picovolt.dev/assets/runtime/web-stable-2.0.0.1/picovolt_bg.wasm
+    expectedStatusCodes: [200]
+    maxResponseTime: 10000
+status-website:
+  name: PicoVolt external checks
+  baseUrl: /picovolt-monitor
+  navbar:
+    - title: Service status
+      href: https://status.picovolt.dev/
