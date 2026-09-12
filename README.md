@@ -23,8 +23,19 @@ as **unknown after ten minutes**, including if GitHub itself is unavailable.
 
 Repository secret `INCIDENT_HTTP_TOKEN` and variable `INCIDENT_HTTP_URL` configure
 the dedicated incident.io HTTP source. This uses supported alert ingestion, not
-the paid general API. An alert route and public-page workflow must be configured
-in incident.io separately; receiving an alert alone does not publish an incident.
+the paid general API. The dedicated alert route and one free public-page workflow are enabled. Each
+production check maps to its own component. The workflow publishes fixed public
+wording and resolves when the linked internal incident closes. Unaccepted triage
+incidents close automatically on alert recovery; accepted incidents require
+operator closure. Setup-test keys are excluded from public publishing.
+
+The free Widget API supplies ongoing public incidents and active maintenance to
+the shared report. Both the main website and Hub consume that report for banners.
+Legacy main-site status links redirect to the incident.io custom domain.
+
+Validation: real healthy checks, scheduled execution, alert ingestion, and an
+internal firing/recovery test passed. No fake public outage was published; confirm
+the public publishing/resolution path during the first real incident.
 
 ## Maintenance
 
