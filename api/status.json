@@ -1,51 +1,46 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-09-30T21:01:13.780554Z",
+  "generated_at": "2026-09-30T21:20:43.538655Z",
   "max_age_seconds": 600,
   "monitoring_mode": "external_scheduled",
   "components": [
     {
       "id": "website",
       "name": "Website",
-      "state": "unavailable",
-      "latency_ms": 1040,
+      "state": "operational",
+      "latency_ms": 865,
       "detail": "External HTTPS observation; not a guarantee of full user journey availability."
     },
     {
       "id": "hub",
       "name": "PicoVolt Hub",
       "state": "operational",
-      "latency_ms": 541,
+      "latency_ms": 445,
       "detail": "External HTTPS observation; not a guarantee of full user journey availability."
     },
     {
       "id": "hub-api",
       "name": "Hub API",
       "state": "operational",
-      "latency_ms": 554,
+      "latency_ms": 412,
       "detail": "External HTTPS observation; not a guarantee of full user journey availability."
     },
     {
       "id": "docs",
       "name": "Documentation",
       "state": "operational",
-      "latency_ms": 489,
+      "latency_ms": 382,
       "detail": "External HTTPS observation; not a guarantee of full user journey availability."
     },
     {
       "id": "engine",
       "name": "Browser engine delivery",
       "state": "operational",
-      "latency_ms": 1107,
+      "latency_ms": 856,
       "detail": "External HTTPS observation; not a guarantee of full user journey availability."
     }
   ],
   "history": [
-    {
-      "observed_at": "2026-09-27T17:57:46.175903Z",
-      "passed": 5,
-      "total": 5
-    },
     {
       "observed_at": "2026-09-27T18:22:42.052727Z",
       "passed": 5,
@@ -1480,8 +1475,21 @@
       "observed_at": "2026-09-30T21:01:13.780554Z",
       "passed": 4,
       "total": 5
+    },
+    {
+      "observed_at": "2026-09-30T21:20:43.538655Z",
+      "passed": 5,
+      "total": 5
     }
   ],
-  "incidents": [],
+  "incidents": [
+    {
+      "id": "01M3T1KBMH8TMT3GP5F9TGB7TT",
+      "source": "incident.io",
+      "title": "Website availability check",
+      "state": "investigating",
+      "updated_at": "2026-09-30T20:55:18.954Z"
+    }
+  ],
   "status_page_url": "https://status.picovolt.dev/"
 }

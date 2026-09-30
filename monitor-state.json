@@ -1,8 +1,8 @@
 {
   "website": {
-    "successes": 1,
-    "state": "unavailable",
-    "delivered": "firing"
+    "successes": 2,
+    "state": "operational",
+    "delivered": "resolved"
   },
   "hub": {
     "successes": 2,
