@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-28T01:24:52.763369Z",
+  "generated_at": "2026-10-28T01:33:39.149468Z",
   "max_age_seconds": 600,
   "monitoring_mode": "external_scheduled",
   "components": [
@@ -8,7 +8,7 @@
       "id": "website",
       "name": "Website",
       "state": "operational",
-      "latency_ms": 1130,
+      "latency_ms": 1161,
       "detail": "External HTTPS observation; not a guarantee of full user journey availability."
     },
     {
@@ -22,30 +22,25 @@
       "id": "hub-api",
       "name": "Hub API",
       "state": "operational",
-      "latency_ms": 512,
+      "latency_ms": 630,
       "detail": "External HTTPS observation; not a guarantee of full user journey availability."
     },
     {
       "id": "docs",
       "name": "Documentation",
       "state": "operational",
-      "latency_ms": 555,
+      "latency_ms": 554,
       "detail": "External HTTPS observation; not a guarantee of full user journey availability."
     },
     {
       "id": "engine",
       "name": "Browser engine delivery",
       "state": "operational",
-      "latency_ms": 1241,
+      "latency_ms": 1216,
       "detail": "External HTTPS observation; not a guarantee of full user journey availability."
     }
   ],
   "history": [
-    {
-      "observed_at": "2026-10-25T04:00:35.346987Z",
-      "passed": 5,
-      "total": 5
-    },
     {
       "observed_at": "2026-10-25T04:22:59.190306Z",
       "passed": 5,
@@ -1478,6 +1473,11 @@
     },
     {
       "observed_at": "2026-10-28T01:24:52.763369Z",
+      "passed": 5,
+      "total": 5
+    },
+    {
+      "observed_at": "2026-10-28T01:33:39.149468Z",
       "passed": 5,
       "total": 5
     }
