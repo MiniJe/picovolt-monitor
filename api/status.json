@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-27T09:53:17.961537Z",
+  "generated_at": "2026-11-27T10:00:16.536213Z",
   "max_age_seconds": 600,
   "monitoring_mode": "external_scheduled",
   "components": [
@@ -8,44 +8,39 @@
       "id": "website",
       "name": "Website",
       "state": "operational",
-      "latency_ms": 865,
+      "latency_ms": 868,
       "detail": "External HTTPS observation; not a guarantee of full user journey availability."
     },
     {
       "id": "hub",
       "name": "PicoVolt Hub",
       "state": "operational",
-      "latency_ms": 551,
+      "latency_ms": 452,
       "detail": "External HTTPS observation; not a guarantee of full user journey availability."
     },
     {
       "id": "hub-api",
       "name": "Hub API",
       "state": "operational",
-      "latency_ms": 439,
+      "latency_ms": 475,
       "detail": "External HTTPS observation; not a guarantee of full user journey availability."
     },
     {
       "id": "docs",
       "name": "Documentation",
       "state": "operational",
-      "latency_ms": 407,
+      "latency_ms": 400,
       "detail": "External HTTPS observation; not a guarantee of full user journey availability."
     },
     {
       "id": "engine",
       "name": "Browser engine delivery",
       "state": "operational",
-      "latency_ms": 800,
+      "latency_ms": 804,
       "detail": "External HTTPS observation; not a guarantee of full user journey availability."
     }
   ],
   "history": [
-    {
-      "observed_at": "2026-11-25T14:29:09.621468Z",
-      "passed": 5,
-      "total": 5
-    },
     {
       "observed_at": "2026-11-25T14:37:55.296874Z",
       "passed": 5,
@@ -1478,6 +1473,11 @@
     },
     {
       "observed_at": "2026-11-27T09:53:17.961537Z",
+      "passed": 5,
+      "total": 5
+    },
+    {
+      "observed_at": "2026-11-27T10:00:16.536213Z",
       "passed": 5,
       "total": 5
     }
